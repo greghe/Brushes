@@ -30,6 +30,7 @@
 @property (nonatomic, readonly) NSUInteger brushesCount;
 @property (weak, nonatomic, readonly) NSArray *stampClasses;
 @property (nonatomic, readonly) NSMutableArray *canonicalGenerators;
+@property (nonatomic, readonly) NSData *secret;
 
 + (WDActiveState *) sharedInstance;
 

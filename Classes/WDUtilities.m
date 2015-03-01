@@ -259,6 +259,26 @@ NSData * WDSHA1DigestForData(NSData *data)
     return [NSData dataWithBytes:cHMAC length:sizeof(cHMAC)];
 }
 
+NSData * WDSHA224DigestForKeyAndData(NSData *key, NSData *data)
+{
+    unsigned char cHMAC[CC_SHA224_DIGEST_LENGTH];
+    CCHmacContext ctx;
+    
+    CCHmacInit(&ctx,
+               kCCHmacAlgSHA224,
+               [key bytes],
+               [key length]);
+    
+    CCHmacUpdate(&ctx,
+                 [data bytes],
+                 [data length]);
+    
+    CCHmacFinal(&ctx,
+                cHMAC);
+    
+    return [NSData dataWithBytes:cHMAC length:sizeof(cHMAC)];
+}
+
 CGPoint WDSharpPointInContext(CGPoint pt, CGContextRef ctx)
 {
     pt = CGContextConvertPointToDeviceSpace(ctx, pt);

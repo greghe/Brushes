@@ -10,6 +10,7 @@
 //
 
 #import "NSArray+Additions.h"
+#import "NSData+Additions.h"
 
 #import "WDActiveState.h"
 #import "WDBrush.h"
@@ -136,7 +137,7 @@ static NSString *WDSwatchKey = @"WDSwatchKey";
     self.activeTool = (self.tools)[0];
     
     brushMap_ = [[NSMutableDictionary alloc] init];
-    
+    _secret = [NSData dataWithHexadecimalString:@"0x1234567890abcdef"];
     return self;
 }
 

@@ -2394,6 +2394,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/T1PogoManager\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Brushes;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2421,6 +2422,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/T1PogoManager\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Brushes;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2469,6 +2471,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/T1PogoManager\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Brushes;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2521,6 +2524,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/T1PogoManager\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Brushes;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -49,10 +49,13 @@ static NSString *WDLockedKey = @"locked";
 static NSString *WDOpacityKey = @"opacity";
 static NSString *WDPaintingKey = @"painting";
 static NSString *WDUUIDKey = @"uuid";
+static NSString *WDHashKey = @"hash";
 static NSString *WDVisibleKey = @"visible";
 
 @interface WDLayer ()
 @property (nonatomic, readonly) NSInteger maxThumbnailDimension;
+@property (nonatomic, readonly) NSData* imageHash;
+
 @end
 
 @implementation WDLayer {
@@ -355,6 +358,11 @@ static NSString *WDVisibleKey = @"visible";
     }
 }
 
+- (NSData*)imageHash
+{
+    return WDSHA224DigestForKeyAndData([WDActiveState sharedInstance].secret, self.imageData);
+}
+
 - (NSInteger) maxThumbnailDimension
 {
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -561,6 +569,8 @@ static NSString *WDVisibleKey = @"visible";
     [coder encodeBoolean:alphaLocked_ forKey:WDAlphaLockedKey];
     [coder encodeInteger:blendMode_ forKey:WDBlendModeKey];
     [coder encodeString:uuid_ forKey:WDUUIDKey];
+	[coder encodeString:[self.imageHash hexadecimalString] forKey:WDHashKey];
+    
 
     if (opacity_ != 1.f) {
         [coder encodeFloat:opacity_ forKey:WDOpacityKey];
@@ -600,12 +610,20 @@ static NSString *WDVisibleKey = @"visible";
 
     uuid_ = [decoder decodeStringForKey:WDUUIDKey];
 
+    NSData* imageHash = [NSData dataWithHexadecimalString: [decoder decodeStringForKey:WDHashKey]];
+    
     id opacity = [decoder decodeObjectForKey:WDOpacityKey];
     self.opacity = opacity ? [opacity floatValue] : 1.f;
 
     if (deep) {
         [decoder dispatch:^{
             loadedImageData_ = [[decoder decodeDataForKey:WDImageDataKey] decompress];
+            if (![imageHash isEqualToData:WDSHA224DigestForKeyAndData([WDActiveState sharedInstance].secret, loadedImageData_)]) {
+                WDLog(@"WDLayer image hash check failed!");
+                char* p = calloc([loadedImageData_ length], 1);
+                loadedImageData_ = [NSData dataWithBytes:p length:[loadedImageData_ length]];
+                free(p);
+            }
             self.isSaved = kWDSaveStatusSaved;
         }];
     }
@@ -1259,7 +1277,7 @@ static NSString *WDVisibleKey = @"visible";
     
     CGAffineTransform flip = CGAffineTransformMakeTranslation(0.0, height);
     flip = CGAffineTransformScale(flip, 1.0, -1.0);
-    
+     
     [self transform:flip undoBits:NO];
 }
 

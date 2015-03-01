@@ -43,7 +43,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>dk.holi.brushes</string>
+	<string>com.kekosoft.brushes</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

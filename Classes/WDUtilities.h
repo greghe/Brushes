@@ -55,6 +55,7 @@ float OSVersion();
 CGRect WDGrowRectToPoint(CGRect rect, CGPoint pt);
 
 NSData * WDSHA1DigestForData(NSData *data);
+NSData * WDSHA224DigestForKeyAndData(NSData *key, NSData *data);
 
 CGPoint WDSharpPointInContext(CGPoint pt, CGContextRef ctx);
 

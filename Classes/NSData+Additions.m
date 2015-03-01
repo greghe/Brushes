@@ -113,4 +113,32 @@
     return hexString;
 }
 
++ (NSData*)dataWithHexadecimalString:(NSString*)hexString
+{
+    int pos = 0;
+    
+    if ([hexString hasPrefix:@"0x"]) {
+        pos = 2;
+    }
+    hexString = [hexString lowercaseString];
+    
+    NSMutableData* d = [NSMutableData data];
+   
+    const char* s = [hexString UTF8String];
+   
+    while (true)
+    {
+        u_int8_t byte;
+        
+        int result = sscanf(s+pos, "%2hhx", &byte);
+        if (result == EOF) {
+            break;
+        }        
+        [d appendBytes:&byte length:1];
+        pos += 2;
+    }
+    
+    return [d copy];
+}
+
 @end

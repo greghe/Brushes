@@ -16,5 +16,5 @@
 - (NSData *)compress;
 
 - (NSString *)hexadecimalString;
-
++ (NSData*)dataWithHexadecimalString:(NSString*)hexString;
 @end

@@ -384,7 +384,7 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     if (!self.isEditing) {
         NSUInteger index = [(UIView *)sender tag];
         WDDocument *document = [[WDPaintingManager sharedInstance] paintingAtIndex:index];
-        [self openDocument:document editing:NO];
+        [self openDocument:document editing:YES];
     } else {
         WDThumbnailView     *thumbnail = (WDThumbnailView *)sender;
         NSString            *filename = [[WDPaintingManager sharedInstance] fileAtIndex:[thumbnail tag]];
@@ -422,7 +422,9 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
 
 - (NSInteger) cellDimension
 {
-    return self.runningOnPhone ? 96 : 235; // 148 for big thumbs on the iPhone
+   // return self.runningOnPhone ? 96 : 235; // 148 for big thumbs on the iPhone
+	 return self.runningOnPhone ? 150 : 235; // 148 for big thumbs on the iPhone
+
 }
 
 - (NSUInteger)numberOfItemsInGridView:(WDGridView *)inGridView
